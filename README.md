@@ -4,7 +4,7 @@
 
 Run Roblox on macOS past your display's refresh rate and past Roblox's 240 fps cap, with an on-screen counter that shows the real render rate.
 
-On an M4 Max at low graphics, this goes from 120 fps to around 700.
+On an M4 Max at low graphics, this goes from 120 fps to around 700 to heavier games at 400 constant. 
 
 > [!WARNING]
 > This injects a library into the Roblox client, which is against Roblox's Terms of Use. It doesn't touch gameplay, but use it at your own risk and preferably not on an account you can't afford to lose. You also have to log in again on the first launch.
@@ -32,16 +32,7 @@ git clone https://github.com/Pogo-Bash/robloxMacOSuncap.git
 cd robloxMacOSuncap
 ./uncapped.sh
 ```
-
- It builds the library on first run, and offers to install Apple's command line tools if they're missing.
-
-## Using it
-
-- **Join games from inside Roblox once Uncapped has opened it.** Play buttons on roblox.com open the normal Roblox app, without Uncapped.
-- **Don't change "Maximum Frame Rate" in Roblox's settings.** Doing so writes 240 back; relaunching through uncapped fixes it.
-- **Undo everything:** the uninstall command above sets the cap back to 240 and deletes the staged copy. Your normal Roblox app is never modified.
-- **From source, choose a different cap or hide the overlay:** `UNCAPPED_FPS=360 ./uncapped.sh`, `UNCAPPED_OVERLAY=0 ./uncapped.sh`.
-- **Logs:** `~/Library/Logs/uncapped.log` (Roblox) and `~/Library/Logs/uncapped-launcher.log` (the app).
+It builds the library on first run, and offers to install Apple's command line tools if they're missing.
 
 The overlay shows your chip and refresh rate, then **Now** (frames finished in the last half second), **Avg** (the average over the last ~8,000 frames with the fastest and slowest 5% dropped, a steady number to compare Macs with) and **1% low** (the frame rate of the slowest 1% of frames, which is where stutter shows). The screen can't show more frames than its refresh rate; the extra frames reduce input latency.
 
