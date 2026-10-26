@@ -19,6 +19,12 @@ curl -fsSL https://raw.githubusercontent.com/Pogo-Bash/robloxMacOSuncap/main/ins
 
 It downloads the latest build from [Releases](https://github.com/Pogo-Bash/robloxMacOSuncap/releases), installs **Uncapped** to your Applications folder and opens it. After that, open Uncapped from Launchpad or Spotlight instead of Roblox. No Terminal needed again.
 
+To launch it from Terminal instead:
+
+```
+open -a Uncapped
+```
+
 To uninstall and put Roblox back to normal:
 
 ```

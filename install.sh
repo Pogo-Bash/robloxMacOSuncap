@@ -42,5 +42,5 @@ xattr -cr "$APP" 2>/dev/null || true
 codesign --force --deep --sign - "$APP" >/dev/null 2>&1 || true
 
 say "Installed to $APP"
-say "Open Uncapped from Launchpad or Spotlight whenever you want to play."
-open "$APP"
+say "Launching Uncapped. Next time, open it from Launchpad or Spotlight, or run: open -a Uncapped"
+open "$APP" || fail "Couldn't launch $APP. Try: open -a Uncapped"
