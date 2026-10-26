@@ -35,6 +35,7 @@ static _Atomic uint32_t gFrameUs[RING];
 static atomic_uint_fast64_t gFrameIdx;
 static _Atomic uint64_t gLastFrameTicks;
 static char gChip[64] = "Apple Silicon";
+static mach_timebase_info_data_t gTB;
 
 static void recordFrame(void) {
     uint64_t now = mach_absolute_time();
@@ -68,7 +69,6 @@ static void frameStats(double *avgFps, double *lowFps) {
     uint32_t p99 = buf[n - 1 - n / 100];
     *lowFps = p99 ? 1e6 / p99 : 0;
 }
-static mach_timebase_info_data_t gTB;
 static uint64_t gLastTick;
 
 static void swizzle(Class cls, SEL sel, IMP repl, IMP *orig) {
