@@ -1,0 +1,40 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build library
+        run: make
+
+      - name: Assemble Uncapped.app
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          app=dist/Uncapped.app/Contents
+          mkdir -p "$app/MacOS" "$app/Resources"
+          sed "s/VERSION/$version/g" app/Info.plist > "$app/Info.plist"
+          cp app/Uncapped "$app/MacOS/Uncapped"
+          cp uncapped.sh build/uncapped.dylib LICENSE "$app/Resources/"
+          chmod +x "$app/MacOS/Uncapped" "$app/Resources/uncapped.sh"
+          codesign --force --deep --sign - dist/Uncapped.app
+          cd dist && ditto -c -k --keepParent Uncapped.app Uncapped.zip
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/Uncapped.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Uncapped
+          path: dist/Uncapped.zip

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Uncapped.app entry point: runs the launcher with the bundled library.
+RES="$(cd "$(dirname "$0")/../Resources" && pwd)"
+mkdir -p "$HOME/Library/Logs"
+UNCAPPED_DYLIB="$RES/uncapped.dylib" exec "$RES/uncapped.sh" "$@" >>"$HOME/Library/Logs/uncapped-launcher.log" 2>&1
