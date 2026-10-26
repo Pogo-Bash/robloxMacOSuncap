@@ -6,6 +6,8 @@ Run Roblox on macOS past your display's refresh rate and past Roblox's 240 fps c
 
 On an M4 Max at low graphics, this goes from 120 fps to around 700 to heavier games at 400 constant. 
 
+![Uncapped running Roblox at about 700 fps on an M4 Max](docs/screenshot.webp)
+
 > [!WARNING]
 > This injects a library into the Roblox client, which is against Roblox's Terms of Use. It doesn't touch gameplay, but use it at your own risk and preferably not on an account you can't afford to lose. You also have to log in again on the first launch.
 
