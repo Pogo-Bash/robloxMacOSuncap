@@ -85,9 +85,13 @@ if [[ ! -d "$STAGED_APP" || "$(cat "$STAMP" 2>/dev/null)" != "$version" ]]; then
     echo "$version" > "$STAMP"
 fi
 
-# 4. Launch, detached so this window can be closed.
+# 4. Launch, detached so this window can be closed. Not through nohup: it's a
+# SIP-protected binary, so macOS strips DYLD_* before Roblox ever sees it.
 say "Launching Roblox (target $FPS fps). Log: $LOG"
-DYLD_INSERT_LIBRARIES="$DYLIB" UNCAPPED_FPS="$FPS" \
-    nohup "$STAGED_APP/Contents/MacOS/RobloxPlayer" "$@" >"$LOG" 2>&1 &
+(
+    trap '' HUP
+    DYLD_INSERT_LIBRARIES="$DYLIB" UNCAPPED_FPS="$FPS" \
+        exec "$STAGED_APP/Contents/MacOS/RobloxPlayer" "$@" >"$LOG" 2>&1 </dev/null
+) &
 disown
 say "Done. You can close this window."
